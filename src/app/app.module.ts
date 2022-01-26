@@ -8,13 +8,18 @@ import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { counterReducer } from './counter.reducer';
-import { MyCounterComponent } from './my-counter/my-counter.component';
-import { NzButtonModule } from 'ng-zorro-antd/button';
+import { ModulesModule } from './modules/modules.module';
+// import { NzButtonModule } from 'ng-zorro-antd/button';
+import { SharedModule } from './shared/shared.module';
+// import { NgZorroImportsModule } from './shared/ng-zorro-imports.module';
+// import { LoginComponent } from './modules/login/login.component';
+// import { RegisterComponent } from './modules/register/register.component';
+// import { ShoppingCartComponent } from './modules/shopping-cart/shopping-cart.component';
+// import { OrderComponent } from './modules/order/order.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    MyCounterComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +31,13 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 
     // Ngrx
     StoreModule.forRoot({ count: counterReducer }),
-    NzButtonModule
+  
+
+    // Shared Module
+    SharedModule,
+
+    // Modules
+    ModulesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
