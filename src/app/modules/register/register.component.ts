@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
+import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { Register } from 'src/app/core/register.model';
+import { RegisterService } from 'src/app/core/register.service';
 
 @Component({
   selector: 'app-register',
@@ -9,27 +12,36 @@ import { NzFormTooltipIcon } from 'ng-zorro-antd/form';
 })
 export class RegisterComponent implements OnInit {
 
+  constructor(
+    private fb: FormBuilder, 
+    private router: Router,
+    private registerService: RegisterService,
+    private nzMessageService: NzMessageService
+  ) {}
+
   validateForm!: FormGroup;
-  captchaTooltipIcon: NzFormTooltipIcon = {
-    type: 'info-circle',
-    theme: 'twotone'
-  };
 
   submitForm(): void {
-    if (this.validateForm.valid) {
-      console.log('submit', this.validateForm.value);
-    } else {
-      Object.values(this.validateForm.controls).forEach(control => {
-        if (control.invalid) {
-          control.markAsDirty();
-          control.updateValueAndValidity({ onlySelf: true });
-        }
+    
+    const that = this;
+    const payload: Register = this.validateForm.value;
+    delete that.validateForm.value['checkPassword'];
+    if (that.validateForm.valid) {
+
+      const response = that.registerService.registerUser(payload);
+      response.then((snapshot) => {
+        that.nzMessageService.info('El usuario fue registrado correctamente');
+        that.validateForm.reset();
+        that.router.navigate(['/shop']);
+      }).catch((snapshot) => {
+        that.nzMessageService.info('Hubo un problema con el registro');
       });
+
     }
+
   }
 
-  updateConfirmValidator(): void {
-    /** wait for refresh value */
+  changeConfirmValidator(): void {
     Promise.resolve().then(() => this.validateForm.controls.checkPassword.updateValueAndValidity());
   }
 
@@ -42,18 +54,12 @@ export class RegisterComponent implements OnInit {
     return {};
   };
 
-  getCaptcha(e: MouseEvent): void {
-    e.preventDefault();
-  }
-
-  constructor(private fb: FormBuilder) {}
-
   ngOnInit(): void {
     this.validateForm = this.fb.group({
+      firstname: [null, [Validators.required]],
       email: [null, [Validators.email, Validators.required]],
-      password: [null, [Validators.required]],
+      password: [null, [Validators.required, Validators.maxLength(8), Validators.minLength(6)]],
       checkPassword: [null, [Validators.required, this.confirmationValidator]],
-      nickname: [null, [Validators.required]]
     });
   }
 

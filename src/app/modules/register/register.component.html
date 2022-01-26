@@ -7,13 +7,13 @@
                         <nz-form-label
                           [nzSm]="6"
                           [nzXs]="24"
-                          nzFor="nickname"
+                          nzFor="firstname"
                           nzRequired
                         >
                           <span>Nombres completos</span>
                         </nz-form-label>
                         <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Queremos conocerte!">
-                          <input nz-input id="nickname" formControlName="nickname" />
+                          <input nz-input id="firstname" formControlName="firstname" />
                         </nz-form-control>
                       </nz-form-item>
                     <nz-form-item>
@@ -30,7 +30,7 @@
                           type="password"
                           id="password"
                           formControlName="password"
-                          (ngModelChange)="updateConfirmValidator()"
+                          (ngModelChange)="changeConfirmValidator()"
                           maxlength="8"
                         />
                       </nz-form-control>

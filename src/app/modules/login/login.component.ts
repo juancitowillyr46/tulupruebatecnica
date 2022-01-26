@@ -24,7 +24,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.validateForm = this.fb.group({
+    const that = this;
+    that.validateForm = that.fb.group({
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(8)]]
     });
@@ -32,14 +33,14 @@ export class LoginComponent implements OnInit {
 
   submitForm(): void {
     const that = this;
-    const response = that.loginService.validateLogin(this.validateForm.value);
+    const response = that.loginService.validateLogin(that.validateForm.value);
     response.then((snapshot) => {
 
       const valueObject: Login = snapshot.toJSON();
 
       if(!valueObject) {
         that.nzMessageService.info('El usuario no existe');
-      } else if(valueObject && valueObject[0].password != this.validateForm.value['password']){
+      } else if(valueObject && valueObject[0].password != that.validateForm.value['password']){
         that.nzMessageService.info('La contraseña es incorrecta');
       } else {
         that.router.navigate(['/shop']);
