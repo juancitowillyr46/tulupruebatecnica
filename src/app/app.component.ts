@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'tulupruebatecnica';
+
+  constructor(private db: AngularFireDatabase) {
+
+  }
+
+  saveData(inputValue: string) {
+    const ref = this.db.list('carts');
+    ref.push(inputValue).then((resp) => {
+      console.log(resp);
+    }).catch((error) => {
+      console.log(error);
+    }); 
+  }
 }
