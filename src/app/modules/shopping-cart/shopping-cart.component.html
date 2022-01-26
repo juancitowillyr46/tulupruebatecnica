@@ -6,36 +6,154 @@
         </div>
         <div class="badge-info">
           <nz-badge [nzCount]="1">
-            <a href="#"><i nz-icon nzType="shop"></i></a>
+            <a href="javascrip:void(0)" (click)="openCart()"><i nz-icon nzType="shop"></i></a>
           </nz-badge>
         </div>
       </div>
     </nz-header>
     <nz-content>
-          <div class="gutter-example">
-            <div nz-row [nzGutter]="[hGutter, vGutter]">
-              <div nz-col class="gutter-row" [nzSpan]="24 / count" *ngFor="let i of array">
-                <div class="grid-config">
-                    <nz-card style="width:300px;" [nzCover]="coverTemplate" [nzActions]="[actionSetting, actionEdit]">
-                        <nz-card-meta
-                          nzTitle="Product One"
-                          nzDescription="This is the description"
-                          [nzAvatar]="avatarTemplate"
-                        ></nz-card-meta>
-                      </nz-card>
-                      <ng-template #coverTemplate>
-                        <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />
-                      </ng-template>
-                      <ng-template #actionSetting>
-                          <div style="display: inline-block;"><i nz-icon nzType="plus"></i> Comprar</div>
-                      </ng-template>
-                      <ng-template #actionEdit>
-                        <div style="display: inline-block;"><i nz-icon nzType="eye"></i> Ver</div>
-                      </ng-template>
-                </div>
-              </div>
+      <div class="gutter-example">
+        <div nz-row [nzGutter]="[hGutter, vGutter]">
+          <div nz-col class="gutter-row" [nzSpan]="24 / count" *ngFor="let i of array">
+            <div class="grid-config">
+                <nz-card style="width:300px;" [nzCover]="coverTemplate" [nzActions]="[actionSetting]">
+                  <nz-card-meta
+                    nzTitle="Product One"
+                    nzDescription="Descripción: This is the description, SKU: 12345"
+                    [nzAvatar]="avatarTemplate"
+                  ></nz-card-meta>
+                </nz-card>
+                <ng-template #coverTemplate>
+                  <img alt="example" src="https://www.portalmayorista.com/images/stories/virtuemart/category/resized/Destornilladores-por-mayor-PortalMayorista_275x275.jpg" />
+                </ng-template>
+                <ng-template #actionSetting>
+                  <div style="display: inline-block;" (click)="openCart()">Agregar al carrito <i nz-icon nzType="plus"></i></div>
+                </ng-template>
             </div>
           </div>
+        </div>
+      </div>
     </nz-content>
-    <!-- <nz-footer>Footer</nz-footer> -->
+    
+    <nz-drawer
+      [nzBodyStyle]="{ overflow: 'auto' }"
+      [nzMaskClosable]="true"
+      [nzClosable]="true"
+      [nzWidth]="400"
+      [nzVisible]="visible"
+      nzPlacement="right"
+      nzTitle="Carrito"
+      (nzOnClose)="closeCart()"
+    >
+      <ng-container *nzDrawerContent>
+        <table width="100%">
+          <tr>
+            <td>
+              <img
+                  nz-image
+                  width="64px"
+                  height="64px"
+                  nzSrc="https://www.portalmayorista.com/images/stories/virtuemart/category/resized/Destornilladores-por-mayor-PortalMayorista_275x275.jpg"
+                  alt=""
+                />
+            </td>
+            <td>Product One</td>
+            <td>
+              <div class="cart-drawer-actions">
+                <nz-select [ngModel]="'1'">
+                  <nz-option [nzLabel]="'1'" [nzValue]="'1'"></nz-option>
+                  <nz-option [nzLabel]="'2'" [nzValue]="'2'"></nz-option>
+                  <nz-option [nzLabel]="'3'" [nzValue]="'3'"></nz-option>
+                  <nz-option [nzLabel]="'4'" [nzValue]="'4'"></nz-option>
+                  <nz-option [nzLabel]="'5'" [nzValue]="'5'"></nz-option>
+                  <nz-option [nzLabel]="'6'" [nzValue]="'6'"></nz-option>
+                </nz-select>
+              </div>
+            </td>
+            <td align="right">S/15.00</td>
+            <td align="right">
+              <button (click)="deleteItemCart()" nz-button nzType="primary" [nzSize]="size" nzShape="circle"><i nz-icon nzType="delete"></i></button>
+            </td>
+          </tr>
+          <tr><td colspan="5"><nz-divider></nz-divider></td></tr>
+          <tr>
+            <td>
+              <img
+                nz-image
+                width="64px"
+                height="64px"
+                nzSrc="https://www.portalmayorista.com/images/stories/virtuemart/category/resized/Destornilladores-por-mayor-PortalMayorista_275x275.jpg"
+                alt=""
+              />
+            </td>
+            <td>Product One</td>
+            <td>
+              <div class="cart-drawer-actions">
+                <nz-select [ngModel]="'1'">
+                  <nz-option [nzLabel]="'1'" [nzValue]="'1'"></nz-option>
+                  <nz-option [nzLabel]="'2'" [nzValue]="'2'"></nz-option>
+                  <nz-option [nzLabel]="'3'" [nzValue]="'3'"></nz-option>
+                  <nz-option [nzLabel]="'4'" [nzValue]="'4'"></nz-option>
+                  <nz-option [nzLabel]="'5'" [nzValue]="'5'"></nz-option>
+                  <nz-option [nzLabel]="'6'" [nzValue]="'6'"></nz-option>
+                </nz-select>
+              </div>
+            </td>
+            <td align="right">S/15.00</td>
+            <td align="right">
+              <button 
+              nz-button 
+              nzType="primary" 
+              [nzSize]="size" 
+              nzShape="circle"
+              ><i nz-icon nzType="delete"></i></button>
+            </td>
+          </tr>
+          <tr><td colspan="5"><nz-divider></nz-divider></td></tr>
+          <tr>
+            <td>
+              <img
+                nz-image
+                width="64px"
+                height="64px"
+                nzSrc="https://www.portalmayorista.com/images/stories/virtuemart/category/resized/Destornilladores-por-mayor-PortalMayorista_275x275.jpg"
+                alt=""
+              />
+            </td>
+            <td>Product One</td>
+            <td>
+              <div class="cart-drawer-actions">
+                <nz-select [ngModel]="'1'">
+                  <nz-option [nzLabel]="'1'" [nzValue]="'1'"></nz-option>
+                  <nz-option [nzLabel]="'2'" [nzValue]="'2'"></nz-option>
+                  <nz-option [nzLabel]="'3'" [nzValue]="'3'"></nz-option>
+                  <nz-option [nzLabel]="'4'" [nzValue]="'4'"></nz-option>
+                  <nz-option [nzLabel]="'5'" [nzValue]="'5'"></nz-option>
+                  <nz-option [nzLabel]="'6'" [nzValue]="'6'"></nz-option>
+                </nz-select>
+              </div>
+            </td>
+            <td align="right">S/15.00</td>
+            <td align="right">
+              <button nz-button nzType="primary" [nzSize]="size" nzShape="circle"><i nz-icon nzType="delete"></i></button>
+            </td>
+          </tr>
+          <tr><td colspan="5"><nz-divider></nz-divider></td></tr>
+          <tr>
+            <td colspan="3"><h4>Total</h4></td>
+            <td align="right"><h4>S/30.00</h4></td>
+          </tr>
+        </table>
+        <br>
+        <button 
+        nz-popconfirm
+        nzPopconfirmTitle="¿Estás seguro que deseas realizar el pago?"
+        (nzOnConfirm)="payConfirm()"
+        (nzOnCancel)="payCancel()"
+        nzPopconfirmPlacement="top"
+        nz-button nzType="primary" nzBlock>Pagar</button>
+      </ng-container>
+    </nz-drawer>
+
+
 </nz-layout>

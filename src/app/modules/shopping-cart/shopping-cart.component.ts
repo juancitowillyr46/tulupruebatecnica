@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzMarks } from 'ng-zorro-antd/slider';
 
 @Component({
@@ -8,7 +9,10 @@ import { NzMarks } from 'ng-zorro-antd/slider';
 })
 export class ShoppingCartComponent implements OnInit {
 
-  constructor() { }
+  public visible: boolean;
+
+  constructor(private nzMessageService: NzMessageService) {}
+
 
   ngOnInit(): void {
   }
@@ -20,6 +24,34 @@ export class ShoppingCartComponent implements OnInit {
   
   reGenerateArray(count: number): void {
     this.array = new Array(count);
+  }
+
+  // Modal carrito
+  openCart(): void {
+    const that = this;
+    that.visible = true;
+  }
+
+  closeCart(): void {
+    const that = this;
+    that.visible = false;
+  }
+
+  // Confirmacion de Pago
+  payConfirm(): void {
+    const that = this;
+    that.nzMessageService.info('click confirm');
+  }
+
+  payCancel(): void {
+    const that = this;
+    that.nzMessageService.info('click cancel');
+  }
+
+  // Eliminacion de Items
+  deleteItemCart(): void {
+    const that = this;
+    that.nzMessageService.info('Producto eliminado');
   }
 
 }

@@ -1,1 +1,58 @@
-<p>order works!</p>
+<nz-layout>
+    <div class="wrp-content-order">
+        <h2>Orden recibida</h2>
+        <p>
+            Muchas gracias, tu orden ha sido recibida y sera confirmada después de revisar el pago
+        </p>
+        
+        <nz-descriptions>
+            <nz-descriptions-item nzTitle="N° Pedido">#2050</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Fecha">2022-01-26</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Total">S/199.99</nz-descriptions-item>
+        </nz-descriptions>
+    
+        <h2>Detalle del pedido</h2>
+        <nz-content>
+                <nz-table #basicTable 
+                [nzData]="listOfData" 
+                [nzSize]="'default'"
+                [nzShowPagination]="false">
+                    <tbody>
+                        <tr>
+                            <td>
+                              <img
+                                  nz-image
+                                  width="64px"
+                                  height="64px"
+                                  nzSrc="https://www.portalmayorista.com/images/stories/virtuemart/category/resized/Destornilladores-por-mayor-PortalMayorista_275x275.jpg"
+                                  alt=""
+                                />
+                            </td>
+                            <td>Product One</td>
+                            <td>
+                              x 2
+                            </td>
+                            <td align="right">S/15.00</td>
+                        </tr>
+                        <tr>
+                            <td>
+                              <img
+                                  nz-image
+                                  width="64px"
+                                  height="64px"
+                                  nzSrc="https://www.portalmayorista.com/images/stories/virtuemart/category/resized/Destornilladores-por-mayor-PortalMayorista_275x275.jpg"
+                                  alt=""
+                                />
+                            </td>
+                            <td>Product One</td>
+                            <td>
+                              x 2
+                            </td>
+                            <td align="right">S/15.00</td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+        </nz-content>
+    </div>
+</nz-layout>
+

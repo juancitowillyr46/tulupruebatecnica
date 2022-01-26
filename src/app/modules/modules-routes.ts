@@ -12,7 +12,7 @@ export const routesModules: Routes = [
         path: 'register', component: RegisterComponent
     },
     {
-        path: 'shopping-cart', component: ShoppingCartComponent
+        path: 'shop', component: ShoppingCartComponent
     },
     {
         path: 'order', component: OrderComponent
