@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { NzMarks } from 'ng-zorro-antd/slider';
+import { Product } from 'src/app/core/product.model';
+import { ProductService } from 'src/app/core/product.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -10,11 +11,31 @@ import { NzMarks } from 'ng-zorro-antd/slider';
 export class ShoppingCartComponent implements OnInit {
 
   public visible: boolean;
+  public productList: Product[] = [];
 
-  constructor(private nzMessageService: NzMessageService) {}
+  constructor(
+    private nzMessageService: NzMessageService, 
+    private productService: ProductService
+  ) {}
 
 
   ngOnInit(): void {
+    const that = this;
+    that.productService.getListProducts().snapshotChanges().subscribe(res => {
+      that.productList = [];
+      return res.map(res => {
+        const productKey = res.key;
+        const productToJson = res.payload.toJSON();
+        that.productList.push({
+          key: productKey + "",
+          id: productToJson['id'],
+          name: productToJson['name'],
+          sku: productToJson['sku'],
+          description: productToJson['description'],
+          image: productToJson['image']
+        });
+      });
+    });
   }
 
   hGutter = 16;

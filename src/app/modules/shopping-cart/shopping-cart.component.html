@@ -14,17 +14,17 @@
     <nz-content>
       <div class="gutter-example">
         <div nz-row [nzGutter]="[hGutter, vGutter]">
-          <div nz-col class="gutter-row" [nzSpan]="24 / count" *ngFor="let i of array">
+          <div nz-col class="gutter-row" [nzSpan]="24 / count" *ngFor="let product of productList">
             <div class="grid-config">
                 <nz-card style="width:300px;" [nzCover]="coverTemplate" [nzActions]="[actionSetting]">
                   <nz-card-meta
-                    nzTitle="Product One"
-                    nzDescription="Descripción: This is the description, SKU: 12345"
+                    nzTitle="{{product.name}}"
+                    nzDescription="Descripción: {{product.description}}, SKU: {{product.sku}}"
                     [nzAvatar]="avatarTemplate"
                   ></nz-card-meta>
                 </nz-card>
                 <ng-template #coverTemplate>
-                  <img alt="example" src="https://www.portalmayorista.com/images/stories/virtuemart/category/resized/Destornilladores-por-mayor-PortalMayorista_275x275.jpg" />
+                  <img alt="example" [src]="product.image" />
                 </ng-template>
                 <ng-template #actionSetting>
                   <div style="display: inline-block;" (click)="openCart()">Agregar al carrito <i nz-icon nzType="plus"></i></div>
@@ -154,6 +154,5 @@
         nz-button nzType="primary" nzBlock>Pagar</button>
       </ng-container>
     </nz-drawer>
-
 
 </nz-layout>
