@@ -2,14 +2,18 @@ import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { BrowserModule } from '@angular/platform-browser';
+import { StoreModule } from '@ngrx/store';
 import { environment } from 'src/environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { counterReducer } from './counter.reducer';
+import { MyCounterComponent } from './my-counter/my-counter.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MyCounterComponent
   ],
   imports: [
     BrowserModule,
@@ -18,6 +22,9 @@ import { AppComponent } from './app.component';
     // Firebase Config
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
+
+    // Ngrx
+    StoreModule.forRoot({ count: counterReducer })
   ],
   providers: [],
   bootstrap: [AppComponent]
