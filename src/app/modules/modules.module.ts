@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { OrderComponent } from './order/order.component';
+import { NgZorroImportsModule } from '../shared/ng-zorro-imports.module';
 
 
 
@@ -15,7 +16,8 @@ import { OrderComponent } from './order/order.component';
     OrderComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    NgZorroImportsModule
   ],
   exports: [
     LoginComponent,

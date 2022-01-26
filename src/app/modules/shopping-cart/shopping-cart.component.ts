@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NzMarks } from 'ng-zorro-antd/slider';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -10,6 +11,15 @@ export class ShoppingCartComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  hGutter = 16;
+  vGutter = 16;
+  count = 4;
+  array = new Array(this.count);
+  
+  reGenerateArray(count: number): void {
+    this.array = new Array(count);
   }
 
 }

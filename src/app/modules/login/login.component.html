@@ -1,1 +1,28 @@
-<p>login works!</p>
+<nz-layout>
+    <nz-content>
+        <div nz-row>
+            <div class="wrp-content-login">
+                <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()" class="login-form">
+                    <nz-form-item>
+                        <nz-form-control nzErrorTip="Por favor ingresa tu correo!">
+                            <nz-input-group nzPrefixIcon="user">
+                                <input formControlName="userName" nz-input placeholder="Correo electrónico" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-control nzErrorTip="Por favor ingresa una contraseña!">
+                            <nz-input-group nzPrefixIcon="lock">
+                                <input formControlName="password" nz-input type="password" placeholder="Contraseña" maxlength="8" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item nz-row>
+                        <button nz-button nzBlock nzType="primary" [disabled]="!validateForm.valid">Iniciar sesión</button>
+                    </nz-form-item>
+                </form>
+            </div>
+        </div>
+    </nz-content>
+</nz-layout>
+
