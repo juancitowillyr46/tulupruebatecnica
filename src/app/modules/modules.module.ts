@@ -6,8 +6,6 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { OrderComponent } from './order/order.component';
 import { NgZorroImportsModule } from '../shared/ng-zorro-imports.module';
 
-
-
 @NgModule({
   declarations: [
     LoginComponent,
