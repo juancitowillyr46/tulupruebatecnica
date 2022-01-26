@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { counterReducer } from './counter.reducer';
 import { MyCounterComponent } from './my-counter/my-counter.component';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { MyCounterComponent } from './my-counter/my-counter.component';
     AngularFireDatabaseModule,
 
     // Ngrx
-    StoreModule.forRoot({ count: counterReducer })
+    StoreModule.forRoot({ count: counterReducer }),
+    NzButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
