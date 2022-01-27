@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/database';
-import { Cart, ProductsCart } from './cart.model';
+import { Cart } from './cart.model';
+import { ProductsCart } from './product-cart.model';
 
 @Injectable({
   providedIn: 'root'

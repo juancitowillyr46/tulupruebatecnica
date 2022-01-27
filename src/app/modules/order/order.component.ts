@@ -11,13 +11,22 @@ import { Cart } from 'src/app/core/cart.interfaces';
 export class OrderComponent implements OnInit {
 
   cart$: Observable<Cart[]>;
+  order$: Observable<string>;
 
-  constructor(private store: Store<{ cartState: Array<Cart> }>) { 
+  constructor(
+    private store: Store<{ cartState: Array<Cart> }>,
+    private storeOrder: Store<{ orderState: "" }>
+  ) { 
     const that = this;
-    that.cart$ = store.select(state => state.cartState);
+    that.cart$ = that.store.select(state => state.cartState);
+    that.order$ = that.storeOrder.select(state => state.orderState);
   }
 
   ngOnInit(): void {
-
+    const that = this;
+    that.order$.subscribe( res => {
+      console.log(res);
+    });
+    //that.storeOrder.dispatch()
   }
 }

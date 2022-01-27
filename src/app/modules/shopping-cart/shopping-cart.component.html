@@ -19,9 +19,10 @@
                 <nz-card style="width:300px;" [nzCover]="coverTemplate" [nzActions]="[actionSetting]">
                   <nz-card-meta
                     nzTitle="{{product.name}}"
-                    nzDescription="Descripción: {{product.description}}, SKU: {{product.sku}}, Precio: S/{{product.price}}"
+                    nzDescription="Descripción: {{product.description}}, SKU: {{product.sku}}"
                     [nzAvatar]="avatarTemplate"
                   ></nz-card-meta>
+                  <h3>S/{{product.price}}</h3>
                 </nz-card>
                 <ng-template #coverTemplate>
                   <img alt="example" [src]="product.image" />
@@ -47,7 +48,7 @@
     >
       <ng-container *nzDrawerContent>
         <table width="100%">
-          <ng-container *ngFor="let c of cart$ | async">
+          <ng-container *ngFor="let c of cloneStateCart"> <!--cart$ | async -->
             <tr>
               <td>
                 <img
@@ -58,10 +59,10 @@
                     alt=""
                   />
               </td>
-              <td>{{c.product_name}}</td>
+              <td>{{c.product_name}} - S/{{c.price}}</td>
               <td>
                 <div class="cart-drawer-actions">
-                  <nz-select [ngModel]="c.quantity">
+                  <nz-select [(ngModel)]="c.quantity" (ngModelChange)="sumTotal(cloneStateCart)">
                     <nz-option [nzLabel]="'1'" [nzValue]="1"></nz-option>
                     <nz-option [nzLabel]="'2'" [nzValue]="2"></nz-option>
                     <nz-option [nzLabel]="'3'" [nzValue]="3"></nz-option>
@@ -71,7 +72,6 @@
                   </nz-select>
                 </div>
               </td>
-              
               <td align="right">S/{{ (c.price * c.quantity) }}</td>
               <td align="right">
                 <button (click)="deleteItemCart(c.id)" nz-button nzType="primary" [nzSize]="size" nzShape="circle"><i nz-icon nzType="delete"></i></button>
@@ -82,7 +82,7 @@
 
           <tr>
             <td colspan="3"><h4>Total</h4></td>
-            <td align="right"><h4>S/30.00</h4></td>
+            <td align="right"><h4>S/{{ cartTotal }}</h4></td>
           </tr>
         </table>
         <br>
@@ -92,7 +92,7 @@
         (nzOnConfirm)="payConfirm()"
         (nzOnCancel)="payCancel()"
         nzPopconfirmPlacement="top"
-        nz-button nzType="primary" nzBlock>Pagar</button>
+        nz-button nzType="primary" nzBlock [disabled]="(cartTotal == 0)">Pagar</button>
       </ng-container>
     </nz-drawer>
 

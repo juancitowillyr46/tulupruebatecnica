@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { Cart } from './cart.interfaces';
-import { Add, Remove, Update } from './cart.actions';
+import { Add, Remove, Update, Syncronization } from './cart.actions';
 
 const initialState: Array<Cart> = [];
 
@@ -17,4 +17,5 @@ export const cartReducer = createReducer(initialState,
   }),
   on(Remove, (state, action) => state.filter(i => i.id !== action.id)),
   on(Update, (state, action) => state.map(i => i.id === action.id ? {...i, cart: !i.id} : i)),
+  on(Syncronization, (state, action) => []),
 )
