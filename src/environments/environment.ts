@@ -13,6 +13,7 @@ export const environment = {
     appId: "1:517203997002:web:b46ecdb2d849684deb51b3",
     databaseURL: 'https://tulpruebatecnica-default-rtdb.firebaseio.com',
   },
+  cartStates: ['pending', 'complete']
 };
 
 /*

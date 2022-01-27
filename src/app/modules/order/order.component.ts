@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Cart } from 'src/app/core/cart.interfaces';
 
 @Component({
   selector: 'app-order',
@@ -7,30 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderComponent implements OnInit {
 
-  constructor() { }
+  cart$: Observable<Cart[]>;
 
-  ngOnInit(): void {
+  constructor(private store: Store<{ cartState: Array<Cart> }>) { 
+    const that = this;
+    that.cart$ = store.select(state => state.cartState);
   }
 
-  listOfData: any[] = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park'
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park'
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park'
-    }
-  ];
+  ngOnInit(): void {
 
+  }
 }

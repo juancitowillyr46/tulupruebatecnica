@@ -7,6 +7,10 @@ import { Product } from 'src/app/core/product.model';
 import { ProductService } from 'src/app/core/product.service';
 import { Add, Remove, Update } from '../../core/cart.actions';
 import * as uuid from 'uuid';
+import { Router } from '@angular/router';
+import { CartService } from 'src/app/core/cart.service';
+import { environment } from 'src/environments/environment';
+import { ProductsCart } from 'src/app/core/cart.model';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -20,19 +24,23 @@ export class ShoppingCartComponent implements OnInit {
 
   cart$: Observable<Cart[]>;
   cartCountProducts: number;
-
+  
   public cartId: string = null;
+
 
   constructor(
     private nzMessageService: NzMessageService, 
     private productService: ProductService,
-    private store: Store<{ cartState: Array<Cart> }>
+    private store: Store<{ cartState: Array<Cart> }>,
+    private router: Router,
+    private cartService: CartService
   ) {
     const that = this;
     that.cart$ = store.select(state => state.cartState);
     that.cart$.subscribe( res => {
       that.cartCountProducts = res.length;
     });
+    
   }
   
 
@@ -70,10 +78,17 @@ export class ShoppingCartComponent implements OnInit {
     that.visible = true;
     this.store.dispatch(Add({ 
       id: uuid.v4(),
+      product_image: product.image,
+      product_name: product.name,
       product_id: product.key,
       price: product.price,
       quantity: 1
     }));
+  }
+
+  onChangeSelection(item: Cart) {
+    console.log(item);
+    item.price = 4;
   }
 
   // Modal carrito
@@ -90,18 +105,50 @@ export class ShoppingCartComponent implements OnInit {
   // Confirmacion de Pago
   payConfirm(): void {
     const that = this;
-    that.nzMessageService.info('click confirm');
+    const uuidCart = uuid.v4();
+    that.cartService.registerCart({
+      id: uuidCart,
+      status: environment.cartStates[0]
+    }).then((response) => {
+
+      let itemStore: ProductsCart[] = [];
+      that.cart$.subscribe(items => {
+        items.forEach(item => {
+          itemStore.push({
+            cart_id: uuidCart,
+            product_id: item.product_id,
+            quantity: item.quantity
+          })
+        });
+        that.registerRelationProductsAndCart(itemStore);
+      });
+
+    }).catch((error) => {
+      that.nzMessageService.info('Hubo un problema al realizar su transacción');
+    });
+  }
+
+  private registerRelationProductsAndCart(payload: ProductsCart[]) {
+    const that = this;
+    that.cartService.registerProductCart(payload).then((response) => {
+      that.nzMessageService.info('Pago realizado correctamente');
+      that.router.navigate(['/order']);
+    }).catch((error) => {
+
+    });
   }
 
   payCancel(): void {
-    const that = this;
-    that.nzMessageService.info('click cancel');
+    //const that = this;
   }
 
   // Eliminacion de Items
-  deleteItemCart(): void {
+  deleteItemCart(id: string): void {
     const that = this;
-    that.nzMessageService.info('Producto eliminado');
+    that.nzMessageService.info('Producto eliminado correctamente');
+    this.store.dispatch(Remove({ 
+      id: id
+    }));
   }
 
 }
