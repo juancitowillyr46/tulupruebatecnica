@@ -5,4 +5,5 @@ export interface Product {
     sku: string;
     description: string;
     image: string;
+    price: number;
 }

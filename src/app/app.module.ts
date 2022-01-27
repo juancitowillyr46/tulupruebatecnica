@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { cartReducer } from './core/cart.reduce';
 import { counterReducer } from './counter.reducer';
 import { ModulesModule } from './modules/modules.module';
 import { SharedModule } from './shared/shared.module';
@@ -24,7 +25,7 @@ import { SharedModule } from './shared/shared.module';
     AngularFireDatabaseModule,
 
     // Ngrx
-    StoreModule.forRoot({ count: counterReducer }),
+    StoreModule.forRoot({ cartState: cartReducer }),
   
     // Shared Module
     SharedModule,

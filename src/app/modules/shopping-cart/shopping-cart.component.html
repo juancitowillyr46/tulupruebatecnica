@@ -5,7 +5,7 @@
           Bienvenid@: Juan Rodas
         </div>
         <div class="badge-info">
-          <nz-badge [nzCount]="1">
+          <nz-badge [nzCount]="cartCountProducts">
             <a href="javascrip:void(0)" (click)="openCart()"><i nz-icon nzType="shop"></i></a>
           </nz-badge>
         </div>
@@ -19,7 +19,7 @@
                 <nz-card style="width:300px;" [nzCover]="coverTemplate" [nzActions]="[actionSetting]">
                   <nz-card-meta
                     nzTitle="{{product.name}}"
-                    nzDescription="Descripción: {{product.description}}, SKU: {{product.sku}}"
+                    nzDescription="Descripción: {{product.description}}, SKU: {{product.sku}}, Precio: S/{{product.price}}"
                     [nzAvatar]="avatarTemplate"
                   ></nz-card-meta>
                 </nz-card>
@@ -27,7 +27,7 @@
                   <img alt="example" [src]="product.image" />
                 </ng-template>
                 <ng-template #actionSetting>
-                  <div style="display: inline-block;" (click)="openCart()">Agregar al carrito <i nz-icon nzType="plus"></i></div>
+                  <div style="display: inline-block;" (click)="addCart(product)">Agregar al carrito <i nz-icon nzType="plus"></i></div>
                 </ng-template>
             </div>
           </div>
@@ -152,6 +152,9 @@
         (nzOnCancel)="payCancel()"
         nzPopconfirmPlacement="top"
         nz-button nzType="primary" nzBlock>Pagar</button>
+        <!-- <div *ngFor="let c of cart$ | async">
+          Dato: {{ c.id }}
+        </div> -->
       </ng-container>
     </nz-drawer>
 
